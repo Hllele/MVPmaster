@@ -9,5 +9,5 @@ import io.reactivex.Observable;
  */
 
 public interface ComingSoonModel {
-        Observable<ComingSoonBean> loadData();
+        Observable<ComingSoonBean> loadData(int start,int count);
 }

@@ -12,8 +12,8 @@ import io.reactivex.Observable;
 
 public class ComingSoonModelImp implements ComingSoonModel {
     @Override
-    public Observable<ComingSoonBean> loadData() {
+    public Observable<ComingSoonBean> loadData(int start,int count) {
         RetrofitClient retrofitClient = RetrofitClient.getInstance(MyApplication.getContext());
-        return retrofitClient.mRequestService.getComingSoonData();
+        return retrofitClient.mRequestService.getComingSoonData(start, count);
     }
 }
