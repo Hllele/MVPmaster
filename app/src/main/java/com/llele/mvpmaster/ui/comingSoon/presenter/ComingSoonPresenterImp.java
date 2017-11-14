@@ -27,8 +27,8 @@ public class ComingSoonPresenterImp implements ComingSoonPresenter {
     }
 
     @Override
-    public void loadData() {
-        mModel.loadData()
+    public void loadData(int start,int count) {
+        mModel.loadData(start,count)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
