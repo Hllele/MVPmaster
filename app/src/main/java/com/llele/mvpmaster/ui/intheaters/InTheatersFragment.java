@@ -25,6 +25,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.llele.mvpmaster.R;
+import com.llele.mvpmaster.base.BaseFragment;
 import com.llele.mvpmaster.bean.IntheatersBean;
 import com.llele.mvpmaster.ui.detail.MovieDetailActivity;
 import com.llele.mvpmaster.ui.intheaters.presenter.InTheatersPresenter;
@@ -38,7 +39,7 @@ import java.util.List;
  * Author： huanglele on 2017/11/7.
  */
 
-public class InTheatersFragment extends Fragment implements InTheatersView,SwipeRefreshLayout.OnRefreshListener{
+public class InTheatersFragment extends BaseFragment implements InTheatersView,SwipeRefreshLayout.OnRefreshListener{
 
     private RecyclerView mRecyclerView;
 
@@ -47,7 +48,7 @@ public class InTheatersFragment extends Fragment implements InTheatersView,Swipe
     private SwipeRefreshLayout refresh_in_theaters;
     private MyAdapter adapter;
     private List<IntheatersBean.SubjectsBean> datas = new ArrayList<>();
-    @Nullable
+  /*  @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_intheaters,container,false);
@@ -63,8 +64,45 @@ public class InTheatersFragment extends Fragment implements InTheatersView,Swipe
         refresh_in_theaters.setRefreshing(true);
 
         return view;
+    }*/
+
+    @Override
+    protected int getContentViewLayoutID() {
+        return R.layout.fragment_intheaters;
     }
 
+    @Override
+    protected void initViews(View view) {
+        p = new InTheatersPresenterImp(InTheatersFragment.this);
+        context = getActivity();
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerList_inTheaters);
+        refresh_in_theaters = (SwipeRefreshLayout)view.findViewById(R.id.refresh_in_theaters);
+        refresh_in_theaters.setColorSchemeColors(getResources().getColor(R.color.colorAccent),getResources().getColor(R.color.colorAccent),getResources().getColor(R.color.colorAccent));
+        refresh_in_theaters.setDistanceToTriggerSync(300);
+        refresh_in_theaters.setSize(SwipeRefreshLayout.DEFAULT);
+        refresh_in_theaters.setOnRefreshListener(this);
+        refresh_in_theaters.setRefreshing(true);
+    }
+
+    @Override
+    protected void onFirstUserVisible() {
+        p.loadData("苏州");
+    }
+
+    @Override
+    protected void onUserVisible() {
+
+    }
+
+    @Override
+    protected void onUserInvisible() {
+
+    }
+
+    @Override
+    protected void DestroyViewAndThing() {
+
+    }
 
 
     @Override
@@ -81,7 +119,7 @@ public class InTheatersFragment extends Fragment implements InTheatersView,Swipe
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
-                intent.putExtra("id",datas.get(position).id);
+                intent.putExtra("id",Integer.valueOf(datas.get(position).id));
                 startActivity(intent);
             }
         });
