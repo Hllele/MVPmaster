@@ -5,6 +5,7 @@ package com.llele.mvpmaster.base;
  */
 
 public interface BasePresenter {
+
     void showDialog();
 
     void dismissDialog();
