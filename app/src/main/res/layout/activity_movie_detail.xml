@@ -2,10 +2,184 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_movie_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f8f8f8"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context="com.llele.mvpmaster.ui.detail.MovieDetailActivity">
+
+    <include layout="@layout/layout_base_title"/>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/layout_scroll"
+        >
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:id="@+id/ll_img"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="250dp">
+                <ImageView
+                    android:id="@+id/cover_movieDetail"
+                    android:layout_width="220dp"
+                    android:layout_height="220dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="20dp"
+                        android:id="@+id/name_movieDetail"
+                        android:textSize="21sp"
+                        android:gravity="left"
+                        android:textColor="@color/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/des_movieDetail"
+                        android:textSize="11sp"
+                        android:gravity="left"
+                        android:textColor="@color/lightGray"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:background="@drawable/bg_movie_detail_card"
+                    android:layout_margin="15dp"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/lightGray"
+                        android:textSize="9sp"
+                        android:text="豆瓣评分"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/rating_movieDetail"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="19sp"
+                        android:text=""
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                        android:id="@+id/ratingBar_detail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxHeight="15dp"
+                        android:minHeight="15dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        app:mrb_progressTint="@color/tint"
+                        app:mrb_secondaryProgressTint="@color/tint"
+                        />
+                    <TextView
+                        android:id="@+id/collectNum_movieDetail"
+                        android:textSize="11sp"
+                        android:text=""
+                        android:textColor="@color/lightGray"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_margin="15dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="简介"
+                    android:gravity="center_vertical"
+                    android:textSize="13sp"
+                    android:layout_margin="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:lines="3"
+                    android:id="@+id/summary_movieDetail"
+                    android:layout_width="match_parent"
+                    android:ellipsize="end"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:textColor="@color/colorAccent"
+                    android:text="展开"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/expand_summary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:paddingLeft="20dp"
+                    android:gravity="center_vertical"
+                    android:textSize="13sp"
+                    android:text="影人"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"/>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerList_filmmakers"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="180dp">
+                <TextView
+                    android:paddingLeft="20dp"
+                    android:gravity="center_vertical"
+                    android:textSize="13sp"
+                    android:text="预告片 / 剧照"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"/>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerList_trailer_photos"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+
+
 
 </LinearLayout>

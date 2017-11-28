@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_margin="4dp"
+              android:gravity="center"
+              android:layout_width="100dp"
+              android:layout_height="200dp">
+    <RelativeLayout
+        android:layout_width="100dp"
+        android:layout_height="130dp">
+        <ImageView
+            android:scaleType="centerCrop"
+            android:id="@+id/cover_usBox"
+            android:layout_width="100dp"
+            android:layout_height="150dp"/>
+
+        <TextView
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            android:background="@color/middleBlue"
+            android:gravity="center"
+            android:text="1"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/ranking_usBox"/>
+    </RelativeLayout>
+
+    <TextView
+        android:text="雷神2"
+        android:textColor="@color/black"
+        android:id="@+id/title_usBox"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:lines="1"
+        android:ellipsize="end"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"/>
+    <TextView
+        android:text="9000万"
+        android:textSize="11sp"
+        android:id="@+id/box_usBox"
+        android:textColor="#505050"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
+</LinearLayout>
