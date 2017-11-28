@@ -23,6 +23,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.target.Target;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.llele.mvpmaster.R;
@@ -53,25 +55,6 @@ public class ComingSoonFragment extends BaseFragment implements ComingSoonView,S
     private boolean isFirstLoad = true;
     private int maxCount =0;
 
-/*
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_coming_soon,container,false);
-        mContext = getActivity();
-        mPresenter = new ComingSoonPresenterImp(ComingSoonFragment.this);
-        mPresenter.loadData(0,20);
-        recyclerList_comingSoon = (RecyclerView)view.findViewById(R.id.recyclerList_comingSoon);
-        refresh_comingSoon = (SwipeRefreshLayout)view.findViewById(R.id.refresh_comingSoon);
-        refresh_comingSoon.setColorSchemeColors(getResources().getColor(R.color.colorAccent),getResources().getColor(R.color.colorAccent),getResources().getColor(R.color.colorAccent));
-        refresh_comingSoon.setDistanceToTriggerSync(250);
-        refresh_comingSoon.setSize(SwipeRefreshLayout.DEFAULT);
-        refresh_comingSoon.setOnRefreshListener(this);
-        refresh_comingSoon.setRefreshing(true);
-
-
-        return view;
-    }*/
 
     @Override
     protected int getContentViewLayoutID() {
@@ -137,7 +120,7 @@ public class ComingSoonFragment extends BaseFragment implements ComingSoonView,S
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
-                intent.putExtra("id", data.get(position).id);
+                intent.putExtra("id", Integer.valueOf(data.get(position).id));
                 startActivity(intent);
             }
         });
@@ -189,7 +172,7 @@ public class ComingSoonFragment extends BaseFragment implements ComingSoonView,S
             SpannableStringBuilder builder = new SpannableStringBuilder(text);
             ForegroundColorSpan span = new ForegroundColorSpan(0xffCD853F);
             builder.setSpan(span,6,text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            Glide.with(mContext).load(item.images.medium).into((ImageView) helper.getView(R.id.cover_in_theaters));
+            Glide.with(mContext).load(item.images.medium).placeholder(mContext.getDrawable(R.drawable.celebrity_default)).into((ImageView) helper.getView(R.id.cover_in_theaters));
             helper.setText(R.id.rating_in_theaters,builder);
             helper.setText(R.id.name_in_theaters,item.title);
             if (item.directors.size()>0){
