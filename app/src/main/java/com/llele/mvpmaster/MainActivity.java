@@ -1,24 +1,23 @@
 package com.llele.mvpmaster;
 
-import android.content.res.Resources;
+import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.TypedValue;
-import android.view.View;
-import android.widget.LinearLayout;
+
+import com.githang.statusbar.StatusBarCompat;
+import com.llele.mvpmaster.base.BaseActivity;
 import com.llele.mvpmaster.ui.comingSoon.ComingSoonFragment;
 import com.llele.mvpmaster.ui.intheaters.InTheatersFragment;
+import com.llele.mvpmaster.ui.us_box.USBoxFragment;
+//import com.llele.mvpmaster.utils.statusbarUitls.Eyes;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
@@ -26,27 +25,35 @@ public class MainActivity extends AppCompatActivity {
     private List<String> list_Title = new ArrayList<>();
     private MyAdapter mAdapter;
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public int getLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    public void initPresenter() {
+
+    }
+
+    @Override
+    public void initView() {
+//        Eyes.setStatusBarColor(MainActivity.this,getColor(R.color.black));
+        StatusBarCompat.setStatusBarColor(this, Color.WHITE,true);
+        setSwipeBackEnable(false);
         mTabLayout = (TabLayout) findViewById(R.id.tab_main);
         mViewPager = (ViewPager) findViewById(R.id.vp);
-        mTabLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                setIndicator(mTabLayout, 50, 50);
-            }
-        });
         list_fragment.add(new InTheatersFragment());
         list_fragment.add(new ComingSoonFragment());
+        list_fragment.add(new USBoxFragment());
         list_Title.add("正在热映");
         list_Title.add("即将上映");
+        list_Title.add("排行榜");
         mAdapter = new MyAdapter(getSupportFragmentManager());
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
         mViewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
-
+//        setTranslucent(MainActivity.this);
     }
 
 
@@ -73,34 +80,4 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void setIndicator(TabLayout tabs, int leftDip, int rightDip) {
-        Class<?> tabLayout = tabs.getClass();
-        Field tabStrip = null;
-        try {
-            tabStrip = tabLayout.getDeclaredField("mTabStrip");
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        }
-
-        tabStrip.setAccessible(true);
-        LinearLayout llTab = null;
-        try {
-            llTab = (LinearLayout) tabStrip.get(tabs);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
-        int left = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, leftDip, Resources.getSystem().getDisplayMetrics());
-        int right = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, rightDip, Resources.getSystem().getDisplayMetrics());
-
-        for (int i = 0; i < llTab.getChildCount(); i++) {
-            View child = llTab.getChildAt(i);
-            child.setPadding(0, 0, 0, 0);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1);
-            params.leftMargin = left;
-            params.rightMargin = right;
-            child.setLayoutParams(params);
-            child.invalidate();
-        }
-    }
 }
