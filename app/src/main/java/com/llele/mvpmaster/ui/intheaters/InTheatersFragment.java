@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.llele.mvpmaster.MyApplication;
 import com.llele.mvpmaster.R;
 import com.llele.mvpmaster.base.BaseFragment;
 import com.llele.mvpmaster.bean.IntheatersBean;
@@ -31,6 +32,8 @@ import com.llele.mvpmaster.ui.detail.MovieDetailActivity;
 import com.llele.mvpmaster.ui.intheaters.presenter.InTheatersPresenter;
 import com.llele.mvpmaster.ui.intheaters.presenter.InTheatersPresenterImp;
 import com.llele.mvpmaster.ui.intheaters.view.InTheatersView;
+import com.llele.mvpmaster.utils.DateUtils;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,23 +51,6 @@ public class InTheatersFragment extends BaseFragment implements InTheatersView,S
     private SwipeRefreshLayout refresh_in_theaters;
     private MyAdapter adapter;
     private List<IntheatersBean.SubjectsBean> datas = new ArrayList<>();
-  /*  @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_intheaters,container,false);
-        context = getActivity();
-        p = new InTheatersPresenterImp(InTheatersFragment.this);
-        p.loadData("苏州");
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerList_inTheaters);
-        refresh_in_theaters = (SwipeRefreshLayout)view.findViewById(R.id.refresh_in_theaters);
-        refresh_in_theaters.setColorSchemeColors(getResources().getColor(R.color.colorAccent),getResources().getColor(R.color.colorAccent),getResources().getColor(R.color.colorAccent));
-        refresh_in_theaters.setDistanceToTriggerSync(300);
-        refresh_in_theaters.setSize(SwipeRefreshLayout.DEFAULT);
-        refresh_in_theaters.setOnRefreshListener(this);
-        refresh_in_theaters.setRefreshing(true);
-
-        return view;
-    }*/
 
     @Override
     protected int getContentViewLayoutID() {
@@ -73,8 +59,8 @@ public class InTheatersFragment extends BaseFragment implements InTheatersView,S
 
     @Override
     protected void initViews(View view) {
-        p = new InTheatersPresenterImp(InTheatersFragment.this);
         context = getActivity();
+        p = new InTheatersPresenterImp(InTheatersFragment.this);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerList_inTheaters);
         refresh_in_theaters = (SwipeRefreshLayout)view.findViewById(R.id.refresh_in_theaters);
         refresh_in_theaters.setColorSchemeColors(getResources().getColor(R.color.colorAccent),getResources().getColor(R.color.colorAccent),getResources().getColor(R.color.colorAccent));
@@ -152,18 +138,38 @@ public class InTheatersFragment extends BaseFragment implements InTheatersView,S
             SpannableStringBuilder builder = new SpannableStringBuilder(text);
             ForegroundColorSpan span = new ForegroundColorSpan(0xffCD853F);
             builder.setSpan(span,6,text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            Glide.with(context).load(item.images.medium).into((ImageView) helper.getView(R.id.cover_in_theaters));
+            Glide.with(context).load(item.images.medium).placeholder(MyApplication.getContext().getDrawable(R.drawable.celebrity_default)).into((ImageView) helper.getView(R.id.cover_in_theaters));
             helper.setText(R.id.rating_in_theaters,builder);
             helper.setText(R.id.name_in_theaters,item.title);
             helper.setText(R.id.director_in_theaters,"导演："+item.directors.get(0).name);
             helper.setText(R.id.casts_in_theaters,"主演："+listToString(item.casts,"/ "));
-            if (item.collect_count >10000){
-                double a = item.collect_count;
-                DecimalFormat df = new DecimalFormat("#.0");
-                helper.setText(R.id.collectNum_in_theaters,df.format(a/10000)+"万人看过");
+            TextView tv = helper.getView(R.id.toOrder_in_theaters);
+            TextView tv1 = helper.getView(R.id.collectNum_in_theaters);
+            if (DateUtils.isShow(item.mainland_pubdate)){
+                tv.setText("热映");
+                tv.setBackground(getResources().getDrawable(R.drawable.bg_purchase));
+                tv1.setTextColor(getResources().getColor(R.color.colorAccent));
+                if (item.collect_count >10000){
+                    double a = item.collect_count;
+                    DecimalFormat df = new DecimalFormat("#.0");
+                    helper.setText(R.id.collectNum_in_theaters,df.format(a/10000)+"万人看过");
+                }else {
+                    helper.setText(R.id.collectNum_in_theaters,item.collect_count+"人看过");
+                }
             }else {
-                helper.setText(R.id.collectNum_in_theaters,item.collect_count+"人看过");
+                tv.setText("预售");
+                tv.setBackground(getResources().getDrawable(R.drawable.bg_presale));
+                tv1.setTextColor(getResources().getColor(R.color.lightsalmon));
+                if (item.collect_count >10000){
+                    double a = item.collect_count;
+                    DecimalFormat df = new DecimalFormat("#.0");
+                    tv1.setText(df.format(a/10000)+"万人想看");
+                }else {
+                    tv1.setText(item.collect_count+"人想看");
+                }
+
             }
+
 
         }
     }
