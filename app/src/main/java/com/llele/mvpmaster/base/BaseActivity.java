@@ -41,8 +41,6 @@ public abstract class BaseActivity extends SwipeBackActivity {
 
     }
 
-
-
     public abstract int getLayoutId();
     public abstract void initPresenter();
     public abstract void initView();
