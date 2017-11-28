@@ -1,11 +1,31 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/middleBlue</item>
+        <item name="colorPrimaryDark">@color/middleBlue</item>
+        <item name="colorAccent">@color/middleBlue</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+
+        <!--<item name="android:windowBackground">@android:color/transparent</item>-->
+    </style>
+
+    <style name="AppTheme" parent="AppTheme.Base">
+    </style>
+
+
+    <style name="Widget.MaterialRatingBar.RatingBar" parent="android:Widget.RatingBar">
+        <item name="android:indeterminateDrawable">@null</item>
+        <item name="android:minHeight">36dp</item>
+        <item name="android:maxHeight">36dp</item>
+    </style>
+
+    <style name="SelfRatingBar" parent="Base.Widget.AppCompat.RatingBar">
+        <item name="android:progressDrawable">@drawable/bg_ratingbar</item>
+        <item name="android:maxHeight">25dp</item>
+        <item name="android:minHeight">25dp</item>
     </style>
 
 </resources>

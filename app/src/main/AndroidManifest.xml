@@ -22,7 +22,9 @@
         </activity>
         <activity android:name=".ui.detail.MovieDetailActivity">
         </activity>
-        <activity android:name=".ui.WeeklyActivity">
+        <activity android:name=".ui.trailers.TrailersActivity"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+            >
 
         </activity>
     </application>

@@ -3,7 +3,40 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+
+
+    <color name="translate">#00ffffff</color>
+    <color name="lightGray">#b4b3b3</color>
+    <color name="middleBlue">#1296db</color>
+    <color name="mainColor">#707070</color>
+
+    <color name="rating_1">#FF4D64</color>
+    <color name="rating_2">#FF7B00</color>
+    <color name="rating_3">#FFC22D</color>
+    <color name="rating_4">#9DACBB</color>
+
+    <color name="detail_color1">#030223</color>
+    <color name="detail_color2">#B4BA9E</color>
+    <color name="detail_color3">#22021C</color>
+    <color name="detail_color4">#BCC2D1</color>
+    <color name="detail_color5">#82775C</color>
+    <color name="detail_color6">#253039</color>
+    <color name="detail_color7">#6D1B1B</color>
+    <color name="detail_color8">#042A32</color>
+    <color name="detail_color9">#385B77</color>
+    <color name="detail_color10">#5E2508</color>
+    <color name="detail_color11">#777BC0</color>
+    <color name="detail_color12">#D1BFBC</color>
+    <color name="detail_color13">#D1BF5D</color>
+    <color name="detail_color14">#D1BF5D</color>
+
+    <color name="ratingBarColor">#FEA64E</color>
+    <color name="tint">#FEA64E</color>
+
+
     <color name="white">#FFFFFF</color><!--白色 -->
+    <color name="halfTransparent">#ffffffff</color>
     <color name="ivory">#FFFFF0</color><!--象牙色 -->
     <color name="lightyellow">#FFFFE0</color><!--亮黄色 -->
     <color name="yellow">#FFFF00</color><!--黄色 -->
@@ -150,4 +183,5 @@
     <color name="darkblue">#00008B</color><!--暗蓝色 -->
     <color name="navy">#000080</color><!--海军色 -->
     <color name="black">#000000</color><!--黑色 -->
+    <color name="darkBlack">#1d1d1d</color><!--黑色 -->
 </resources>
